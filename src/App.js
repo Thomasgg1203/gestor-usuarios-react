@@ -1,25 +1,71 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from 'react'
+import useFormurario from './hooks/useFormurario'
+import Input from './components/Input'
+import Card from './components/Card'
+import Container from './components/Card'
+import Button from './components/Button'
 
 function App() {
+  const [usuarios, setUsuarios] = useState([])
+  const [formulario, handleChange, reset] = useFormurario({
+    name: '',
+    lastName: '',
+    email: '',
+  })
+
+  const submit = (e) => {
+    e.preventDefault()
+    setUsuarios([
+      ...usuarios,
+      formulario,
+    ])
+    reset()
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div style={{marginTop: '15%'}}>
+      <Container>
+        <Card>
+          <div style={{ padding: 20 }}>
+            <form onSubmit={submit}>
+              <Input
+                label='Name'
+                name='name'
+                placeholder="Name"
+                value={formulario.name}
+                onChange={handleChange}
+              />
+              <Input
+                label='Last Name'
+                name='lastName'
+                placeholder="Last Name"
+                value={formulario.lastName}
+                onChange={handleChange}
+              />
+              <Input
+                label='Email'
+                name='email'
+                placeholder="Email"
+                value={formulario.email}
+                onChange={handleChange}
+              />
+              <Button>
+                Enviar
+              </Button>
+            </form>
+          </div>
+        </Card>
+        <Card>
+          <ul>
+            {usuarios.map(u =>
+              <li key={u.email} >
+                {`${u.name} -- ${u.lastName} -- ${u.email}`}
+              </li>
+            )}
+          </ul>
+        </Card>
+      </Container>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
