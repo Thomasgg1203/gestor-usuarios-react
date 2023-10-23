@@ -22,7 +22,7 @@ function App() {
     reset()
   }
   return (
-    <div style={{marginTop: '15%'}}>
+    <div style={{marginTop: '10%'}}>
       <Container>
         <Card>
           <div style={{ padding: 20 }}>
