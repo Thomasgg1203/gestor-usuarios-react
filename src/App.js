@@ -1,57 +1,24 @@
 import { useState } from 'react'
-import useFormurario from './hooks/useFormurario'
-import Input from './components/Input'
 import Card from './components/Card'
 import Container from './components/Card'
-import Button from './components/Button'
+import UserForm from './components/UserForm'
 
 function App() {
   const [usuarios, setUsuarios] = useState([])
-  const [formulario, handleChange, reset] = useFormurario({
-    name: '',
-    lastName: '',
-    email: '',
-  })
 
-  const submit = (e) => {
-    e.preventDefault()
+  const submit = usuario => {
     setUsuarios([
       ...usuarios,
-      formulario,
+      usuario,
     ])
-    reset()
   }
+  console.log(usuarios)
   return (
     <div style={{marginTop: '10%'}}>
       <Container>
         <Card>
           <div style={{ padding: 20 }}>
-            <form onSubmit={submit}>
-              <Input
-                label='Name'
-                name='name'
-                placeholder="Name"
-                value={formulario.name}
-                onChange={handleChange}
-              />
-              <Input
-                label='Last Name'
-                name='lastName'
-                placeholder="Last Name"
-                value={formulario.lastName}
-                onChange={handleChange}
-              />
-              <Input
-                label='Email'
-                name='email'
-                placeholder="Email"
-                value={formulario.email}
-                onChange={handleChange}
-              />
-              <Button>
-                Enviar
-              </Button>
-            </form>
+            <UserForm submit={submit} />
           </div>
         </Card>
         <Card>
